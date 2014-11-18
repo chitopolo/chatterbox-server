@@ -13,6 +13,24 @@ this file and include it in basic-server.js so that it actually works.
 **************************************************************/
 var url = require('url');
 
+var myMessage = {
+  objectId: 133,
+  username: 'cat',
+  text: 'feed me i am hungry',
+  roomname: 'lobby'
+}
+
+var reneMessage = {
+  objectId: 123,
+  username: 'rene',
+  text: 'hello',
+  roomname: 'lobby'
+}
+
+var data = {
+    results: [myMessage, reneMessage]
+  }
+
 exports.requestHandler = function(request, response) {
   // Request and Response come from node's http module.
     //
@@ -47,43 +65,42 @@ exports.requestHandler = function(request, response) {
 
   // response.writeHead(statusCode, headers);
 
-  //message test
-  var myMessage = {
-    username: 'cat',
-    text: 'feed me i am hungry',
-    roomname: 'lobby'
-  }
+  //data events
+  request.on('data', function(chunk){
+    var parsedData = JSON.parse(chunk.toString('utf-8'));
+    console.log(parsedData);
+    data.results.push(parsedData);
+    console.log(data.results)
+  });
 
-  var myMessageJSON = JSON.stringify(myMessage);
+
+  var messages = JSON.stringify(data);
 
   //url
   var pathname = url.parse(request.url).pathname;
   console.log(pathname);
 
-  //message storage
-  var _storage = [];
 
   //routes
   if (request.method === 'OPTIONS') {
     console.log('options request');
     headers['Content-Type'] = "text/plain";
-    response.writeHead(statusCode, headers);
-    return response.end();
+    response.writeHead(200, headers);
+    response.end();
   }
-    
-  console.log('gothere')
+
   if (request.method === 'GET') {
+    console.log('The data length is: '+ data.results.length);
     console.log('this was a GET request');
-    response.writeHead(statusCode, headers);
-    response.write(myMessageJSON);
+    response.writeHead(200, headers);
+    response.write(messages);
     response.end();
   }
 
   if (request.method === 'POST') {
-    console.log('this was a POST request')
-    response.writeHead(statusCode, headers);
-
-    reponse.end('post end');
+    console.log('this was a POST request');
+    response.writeHead(201, headers);
+    response.end(JSON.stringify({response:'Success'}));
   }
 
   // Make sure to always call response.end() - Node may not send
@@ -93,7 +110,7 @@ exports.requestHandler = function(request, response) {
     //
     // Calling .end "flushes" the response's internal buffer, forcing
     // node to actually send all the data over to the client.
-  response.end('hello');
+  // response.end('hello');
   };
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).

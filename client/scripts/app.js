@@ -63,7 +63,7 @@ $(function() {
         // data: { order: '-createdAt'},
         success: function(data) {
           console.log('chatterbox: Messages fetched');
-
+          console.log(data);
           // Don't bother if we have nothing to work with
           if (!data.results || !data.results.length) { return; }
 
@@ -210,6 +210,7 @@ $(function() {
     },
     handleSubmit: function(evt) {
       var message = {
+        objectId: Math.floor(Math.random()*100),
         username: app.username,
         text: app.$message.val(),
         roomname: app.roomname || 'lobby'

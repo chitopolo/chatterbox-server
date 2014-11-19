@@ -1,38 +1,63 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>chatterbox</title>
-    <link rel="stylesheet" href="styles/styles.css">
+<head>
+  <meta charset="utf-8">
+  <title>chatterbox</title>
+  <link rel="stylesheet" href="styles/styles.css">
 
-    <!-- dependencies -->
-    <script src="bower_components/jquery/jquery.min.js"></script>
+  <!-- dependencies -->
+  <script src="bower_components/jquery/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
-    <script src="bower_components/underscore/underscore-min.js"></script>
-        <!-- your scripts -->
-    <script src="env/config.js"></script>
-    <script src="scripts/app.js"></script>
-  </head>
-  <body>
+  <script src="bower_components/underscore/underscore-min.js"></script>
+  <!-- your scripts -->
+  <script src="env/config.js"></script>
+  <script src="scripts/app.js"></script>
+</head>
+<body>
+  
 
-    <script>
-      $(function(){
-        app.init();
-      });
-    </script>    <div id="main">
-      <h1>chatterbox</h1>
-      <!-- Your HTML goes here! -->
+  <script>
+  $(function(){
+    app.init();
+  });
+  </script>
 
-      <div class="spinner"><img src="images/spiffygif_46x46.gif"></div>
-      <div id="rooms">
-        Room:
-        <select id="roomSelect">
-        </select>
-      </div>
-      <form action="#" id="send" method="post">
-        <input type="text" name="message" id="message"/>
-        <input type="submit" name="submit" class="submit"/>
-      </form>
-      <div id="chats"></div>    </div>
-  </body>
+  <div id="main">
+    <h1>chatterbox</h1>
+    <!-- Your HTML goes here! -->
+
+    <div class="col-md-3 menu">
+     Room:
+     <select id="roomSelect" class="form-control">
+     </select>
+     <div class="spinner"><img src="images/spiffygif_46x46.gif"></div>
+     
+   </div>
+   <div class="col-md-9">
+
+     <div id="rooms">
+       
+     </div>
+     <form action="#" id="send" method="post">
+      <input type="text" name="message" id="message" class="form-control"/>
+      <input type="submit" name="submit" class="submit btn btn-primary"/>
+    </form>
+
+    
+    <div id="chats">
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
 </html>
